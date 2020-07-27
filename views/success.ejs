@@ -1,3 +1,32 @@
-<h1><%= firstname %></h1>
-<h2><%= lastname %></h2>
-<pre><%= mail %></pre>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express Fitness</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+  </head>
+  <body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <!-- navbar items, navbar burger... -->
+        <a class="navbar-item" href="">
+          <img src="images/logo.png" alt="logo" height="28">
+        </a>
+      </div>
+    </nav>
+    <div class="columns is-centered">
+        <div class="column is-half">
+          <p>Les informations suivante ont bien été envoyé :</p>
+          <p>Prénom : <%= firstname %></p>
+          <p>Nom : <%= lastname %></p>
+          <p>Mail : <%= mail %></p>
+          <p>Date d'anniversaire : <%= birth %></p>
+          <p>Numéro de téléphone : <%= phone %></p>
+          <p>Code d'affiliation : <%= affil %></p>
+          <a href="https://us17.admin.mailchimp.com/lists/members?id=211156#p:1-s:25-sa:last_update_time-so:false">>>Allez dans mailchimp</a>
+        </div>
+    </div>
+
+

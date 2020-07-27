@@ -1,63 +1,55 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const axios = require('axios');
-var Mailchimp = require('mailchimp-api-v3')
-
-
-
-var bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const Mailchimp = require('mailchimp-api-v3')
+const bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const Account = require('./pass')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
 });
 router.post('/envoyer' , urlencodedParser, function(req, res) {
-  var firstname = req.body.firstname;
-  var lastname = req.body.lastname;
-  var mail = req.body.mail;
+  let firstname = req.body.firstname;
+  let lastname = req.body.lastname;
+  let mail = req.body.mail;
+  let birth = req.body.birth;
+  let phone = req.body.phone
+  let affil = Math.random().toString(36).substring(7);
+  console.log("random", affil);
 
-  // let url = "https://us17.api.mailchimp.com/3.0/lists/2a12b877c0/members"
-  let api = "9ddff04bf92463b4311ef9d4584fd42b-us17"
-  //     axios
-  //     .post(url, {
-  //       auth:{
-  //         username: 'username',
-  //         password : api
-  //       },
-  //       headers:{
-  //         'content-type': 'application/json',
-  //         "Access-Control-Allow-Origin": "*"
-  //       },
-  //       data:{
-  //         'email_address' : mail,
-  //         "status": "subscribed",
-  //         "merge_fields": {
-  //           "FNAME": firstname,
-  //           "LNAME": lastname
-  //         }
-  //       }
-  //     })
-  //     .then(response => {
-  //       console.log(response);
-  //     })
-  //     .catch(err => {
-  //         console.log(err);
-  //     })
+  //inversion du mois et jour pour API
+  birth = birth.split('/')
+  birth = birth[1] + '/' + birth[0]
 
-  var mailchimp = new Mailchimp(api);
+//   res.render('success', {mail: mail, firstname:firstname, lastname:lastname, birth:birth})
+// })
 
-  mailchimp.post('/lists/2a12b877c0/members', {
+  //Envoi par API dans la base mailchimp
+  //A faire en parallèle d'ajout dans la base de donnée.
+  // let api = "9ddff04bf92463b4311ef9d4584fd42b-us17"
+  let mailchimp = new Mailchimp(Account.mailchimpApi);
+
+  mailchimp.post(Account.mailchimpUrl, {
     email_address : mail,
     status : 'subscribed',
     merge_fields: {
       FNAME : firstname,
-      LNAME: lastname
+      LNAME: lastname,
+      BIRTH: birth,
+      PHONE: phone,
+      AFFIL: affil
     }
   })
-
-
-  res.render('success', {mail: mail, firstname:firstname, lastname:lastname})
+  .then(function (result) {
+    console.log(result);
+    res.render('success', {mail: mail, firstname:firstname, lastname:lastname, birth:birth, phone:phone, affil:affil})
+  })
+  .catch(function (err) {
+    console.log(err);
+    res.redirect('/');
+  })
 })
 
 module.exports = router;
