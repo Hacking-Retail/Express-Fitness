@@ -23,12 +23,8 @@ router.post('/envoyer' , urlencodedParser, function(req, res) {
   birth = birth.split('/')
   birth = birth[1] + '/' + birth[0]
 
-//   res.render('success', {mail: mail, firstname:firstname, lastname:lastname, birth:birth})
-// })
-
   //Envoi par API dans la base mailchimp
   //A faire en parallèle d'ajout dans la base de donnée.
-  // let api = "9ddff04bf92463b4311ef9d4584fd42b-us17"
   let mailchimp = new Mailchimp(Account.mailchimpApi);
 
   mailchimp.post(Account.mailchimpUrl, {
