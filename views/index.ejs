@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express Fitness</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+  </head>
+  <body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <!-- navbar items, navbar burger... -->
+        <a class="navbar-item" href="">
+          <img src="images/logo.png" alt="logo" height="28">
+        </a>
+      </div>
+    </nav>
+    <form method="POST" action="/envoyer">
+        <div>
+          <div class="field">
+              <label class="label">Firstname</label>
+              <div class="control">
+                  <input class="input" type="text" placeholder="Text input" name="firstname">
+              </div>
+          </div>
+              <div class="field">
+              <label class="label">Lastname</label>
+              <div class="control">
+                  <input class="input" type="text" placeholder="Text input" name="lastname">
+              </div>
+          </div>
+          <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left has-icons-right">
+                  <input class="input" type="email" placeholder="Email input" value="mail@email.com" name="mail">
+                  <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                  </span>
+              </div>
+          </div>
+          <div class="field">
+              <div class="control">
+                  <button class="button is-link" @click="sendInfo()">Submit</button>
+              </div>
+          </div>
+      </div>
+    </form>
+  </body>
+</html>
