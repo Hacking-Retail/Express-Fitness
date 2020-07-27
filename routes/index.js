@@ -10,12 +10,14 @@ const Account = require('./pass')
 router.get('/', function(req, res, next) {
   res.render('index');
 });
+
 router.post('/envoyer' , urlencodedParser, function(req, res) {
   let firstname = req.body.firstname;
   let lastname = req.body.lastname;
   let mail = req.body.mail;
   let birth = req.body.birth;
   let phone = req.body.phone
+  //Code affiliation
   let affil = Math.random().toString(36).substring(7);
   console.log("random", affil);
 
